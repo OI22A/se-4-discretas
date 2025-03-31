@@ -5,6 +5,8 @@ import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
+
+        SumaSubArreglo s = new SumaSubArreglo();
         Scanner scanner = new Scanner(System.in);
 
         System.out.print("Ingrese el tamaño del arreglo: ");
@@ -19,7 +21,7 @@ public class Main {
         System.out.print("Ingrese la suma objetivo: ");
         int S = scanner.nextInt();
 
-        SumaSubArreglo.encontrarSubarreglo(arr, S);
+        s.encontrarSubarreglo(arr, S);
 
         scanner.close();
     }

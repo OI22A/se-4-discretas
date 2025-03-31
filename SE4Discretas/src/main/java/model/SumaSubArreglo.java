@@ -1,38 +1,42 @@
 package model;
 
 public class SumaSubArreglo {
-    public static void encontrarSubarreglo(int[] arr, int S) {
+    public String encontrarSubarreglo(int[] arr, int S) {
         TablaHash tabla = new TablaHash();
         int sumaActual = 0;
+        String msg="";
 
         for (int i = 0; i < arr.length; i++) {
             sumaActual += arr[i];
 
             if (sumaActual == S) {
-                System.out.println("Subarreglo encontrado: [" + indicesComoLista(0, i) + "]");
-                return;
+                msg += ("Subarreglo encontrado: [" + indicesComoLista(0, i) + "]");
+                return msg;
             }
 
             if (tabla.contieneClave(sumaActual - S)) {
                 int inicio = tabla.obtener(sumaActual - S) + 1;
-                System.out.println("Subarreglo encontrado: [" + indicesComoLista(inicio, i) + "]");
-                return;
+                msg += indicesComoLista(inicio, i) + "]";
+                return msg;
             }
 
             tabla.insertar(sumaActual, i);
         }
 
-        System.out.println("No se encontró un subarreglo con la suma " + S);
+        msg+="No se encontró un subarreglo con la suma " + S;
+        return msg; 
     }
 
-    private static String indicesComoLista(int inicio, int fin) {
-        StringBuilder sb = new StringBuilder();
+    public String indicesComoLista(int inicio, int fin) {
+        String result = "";
+        
         for (int i = inicio; i <= fin; i++) {
-            sb.append(i);
+            result += i;
             if (i < fin) {
-                sb.append(",");
+                result += ",";
             }
         }
-        return sb.toString();
+        
+        return result;
     }
 }
