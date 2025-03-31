@@ -1,26 +1,22 @@
 package model;
+import java.util.HashMap;
 
-public class TablaHash<K, V> {
-    private int size;
-    private ListaEnlazada arreglo;
+public class TablaHash {
+    HashMap<Integer, Integer> mapa;
 
     public TablaHash() {
-        this.size = 0;
+        this.mapa = new HashMap<>();
     }
 
-    public void Insertar(K clave, V valor) {
-
+    public void insertar(int clave, int valor) {
+        mapa.put(clave, valor);
     }
 
-    public int obtenerIndice(K clave) {
-        return Math.abs(clave.hashCode() % size);
+    public boolean contieneClave(int clave) {
+        return mapa.containsKey(clave);
     }
 
-    public int getSize() {
-        return this.size;
-    }
-
-    public void setSize(int size) {
-        this.size = size;
+    public int obtener(int clave) {
+        return mapa.get(clave);
     }
 }

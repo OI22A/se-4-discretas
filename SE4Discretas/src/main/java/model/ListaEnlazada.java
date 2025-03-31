@@ -1,17 +1,23 @@
 package model;
 
 public class ListaEnlazada {
-    private Nodo head;
+    Nodo cabeza;
 
     public ListaEnlazada() {
-        this.head = null;
+        this.cabeza = null;
     }
 
-    public Nodo getHead() {
-        return head;
-    }
-
-    public void setHead(Nodo head) {
-        this.head = head;
+    public void agregar(int dato) {
+        Nodo nuevoNodo = new Nodo(dato);
+        if (cabeza == null) {
+            cabeza = nuevoNodo;
+        } else {
+            Nodo temp = cabeza;
+            while (temp.siguiente != null) {
+                temp = temp.siguiente;
+            }
+            temp.siguiente = nuevoNodo;
+        }
     }
 }
+
