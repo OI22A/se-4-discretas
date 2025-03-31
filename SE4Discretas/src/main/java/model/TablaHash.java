@@ -1,22 +1,71 @@
 package model;
-import java.util.HashMap;
 
 public class TablaHash {
-    HashMap<Integer, Integer> mapa;
+    private static class Entrada {
+        int clave;
+        int valor;
+        Entrada siguiente;
+
+        Entrada(int clave, int valor) {
+            this.clave = clave;
+            this.valor = valor;
+            this.siguiente = null;
+        }
+    }
+
+    private static final int TAMANO = 1000;
+    private Entrada[] tabla;
 
     public TablaHash() {
-        this.mapa = new HashMap<>();
+        this.tabla = new Entrada[TAMANO];
+    }
+
+    private int hash(int clave) {
+        return Math.abs(clave) % TAMANO;
     }
 
     public void insertar(int clave, int valor) {
-        mapa.put(clave, valor);
+        int indice = hash(clave);
+        Entrada nuevaEntrada = new Entrada(clave, valor);
+
+        if (tabla[indice] == null) {
+            tabla[indice] = nuevaEntrada;
+        } else {
+            Entrada actual = tabla[indice];
+            while (actual.siguiente != null) {
+                if (actual.clave == clave) {
+                    actual.valor = valor;
+                    return;
+                }
+                actual = actual.siguiente;
+            }
+            actual.siguiente = nuevaEntrada;
+        }
     }
 
     public boolean contieneClave(int clave) {
-        return mapa.containsKey(clave);
+        int indice = hash(clave);
+        Entrada actual = tabla[indice];
+
+        while (actual != null) {
+            if (actual.clave == clave) {
+                return true;
+            }
+            actual = actual.siguiente;
+        }
+        return false;
     }
 
     public int obtener(int clave) {
-        return mapa.get(clave);
+        int indice = hash(clave);
+        Entrada actual = tabla[indice];
+
+        while (actual != null) {
+            if (actual.clave == clave) {
+                return actual.valor;
+            }
+            actual = actual.siguiente;
+        }
+        return -1;
     }
 }
